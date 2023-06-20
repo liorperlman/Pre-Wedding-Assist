@@ -8,10 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Link } from 'react-router-dom';
 
 
-
 export default class CreateGuestPage extends Component {
-    
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +23,7 @@ export default class CreateGuestPage extends Component {
         this.handlePhoneNumberChange = this.handlePhoneNumberChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     handleNameChange(e) {
         this.setState({ name: e.target.value});
     }
@@ -80,10 +78,8 @@ export default class CreateGuestPage extends Component {
                     }}
                     />
                     <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link} onClick={this.handleSubmit}>Create Guest</Button>
-
                 </FormControl>
             </Grid>
-
         </Grid>);
-        }
+    }
 }

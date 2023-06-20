@@ -5,6 +5,8 @@ import LoginPage from './LoginPage';
 import LandingPage from './LandingPage';
 import CreateGuestPage from './CreateGuestPage';
 import CreateTablePage from './CreateTablePage';
+import GuestPage from './GuestPage';
+import TablePage from './TablePage';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, Routes } from 'react-router-dom';
 
 export default class App extends Component {
@@ -21,6 +23,8 @@ export default class App extends Component {
                     <Route exact path="/home" element={<HomePage/>} />
                     <Route exact path="/createGuest" element={<CreateGuestPage/>} />
                     <Route exact path="/createTable" element={<CreateTablePage/>} />
+                    <Route path="/table/:id" element={<TablePage/>} />
+                    <Route path="/guest/:id" element={<GuestPage/>} />
                 </Routes>
             </Router>
         );

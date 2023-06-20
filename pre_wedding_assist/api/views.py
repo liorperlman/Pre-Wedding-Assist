@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics, status
-from .serializers import WeddingSerializer, GuestSerializer, CreateWeddingSerializer, CreateTableSerializer, CreateGuestSerializer
-from .models import Wedding, Guest
+from .serializers import WeddingSerializer, TableSerializer, GuestSerializer, CreateWeddingSerializer, CreateTableSerializer, CreateGuestSerializer
+from .models import Wedding, Table, Guest
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -16,6 +16,10 @@ def create_guest(request):
 class WeddingView(generics.ListAPIView):
     queryset = Wedding.objects.all()
     serializer_class = WeddingSerializer
+    
+class TableView(generics.ListAPIView):
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
     
 class GuestView(generics.ListAPIView):
     queryset = Guest.objects.all()
@@ -41,8 +45,26 @@ class CreateWeddingView(APIView):
                 wedding = Wedding(host=host, date_of_wedding=date_of_wedding)
                 wedding.save()
             
-            return Response(WeddingSerializer(wedding).data, status=status.HTTP_)
+            return Response(WeddingSerializer(wedding).data, status=status.HTTP_201_CREATED)
 
+class CreateTableView(APIView):
+    serializer_class = CreateTableSerializer
+    
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+            
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            capacity = serializer.data.get('capacity')
+            wedding = serializer.data.get('wedding')
+            
+            table = Table(capacity=capacity, wedding=wedding)
+            table.save()
+            
+            return Response(TableSerializer(table).data, status=status.HTTP_201_CREATED)
+        #return Response('outside of the if statement')
+        
 class CreateGuestView(APIView):
     serializer_class = CreateGuestSerializer
     
@@ -64,3 +86,36 @@ class CreateGuestView(APIView):
             
             return Response(GuestSerializer(guest).data, status=status.HTTP_201_CREATED)
         # return Response('outside of the if statement')
+        
+        
+class GetGuest(APIView):
+    serializer_class = GuestSerializer
+    lookup_url_kwarg = 'id'
+    
+    def get(self, request, format=None):
+        id = request.GET.get(self.lookup_url_kwarg)
+        
+        if id != None:
+            guest = Guest.objects.filter(id=id)
+            if len(guest) > 0:
+                data = GuestSerializer(guest[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Guest Not Found': 'Invalid Guest Id'}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class GetTable(APIView):
+    serializer_class = TableSerializer
+    lookup_url_kwarg = 'id'
+    
+    def get(self, request, format=None):
+        id = request.GET.get(self.lookup_url_kwarg)
+        
+        if id != None:
+            table = Table.objects.filter(id=id)
+            if len(table) > 0:
+                data = TableSerializer(table[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Table Not Found': 'Invalid Table Id'}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
