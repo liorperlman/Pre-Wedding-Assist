@@ -119,3 +119,18 @@ class GetTable(APIView):
             return Response({'Table Not Found': 'Invalid Table Id'}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+    
+class AssignGuestToTable(APIView):
+    lookup_url_kwarg = 'id'
+    
+    def post(self, request, format=None):
+        id = request.data.get(self.lookup_url_kwarg)
+        if id != None:
+            table_result = Table.objects.filter(id=id)
+            if len(table_result) > 0:
+                table=table_result[0]
+                
+                return Response({'message': 'Table Joined'}, status=status.HTTP_200_OK)
+            return Response({'Bad Request': 'Invalid Table Number'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status.HTTP_400_BAD_REQUEST)
+    

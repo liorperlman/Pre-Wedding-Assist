@@ -11,9 +11,9 @@ export default class LandingPage extends Component {
 
     render() {
         return (
-        <div>
+        <div className='center'>
             <p>This is the landing page</p>
-            <Button color='primary' variant='contained' name="login" to='/login' component={Link}>Login</Button>
+            <Button className='center' color='primary' variant='contained' name="login" to='/login' component={Link}>Login</Button>
         </div>
         );
     }

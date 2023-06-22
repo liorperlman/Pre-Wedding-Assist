@@ -7,5 +7,6 @@ urlpatterns = [
     path('createTable/', index),
     path('home/', index),
     path('guest/<int:id>/', index),
-    path('table/<int:id>/', index)
+    path('table/<int:id>/', index),
+    path('assignTable', index)
 ]
