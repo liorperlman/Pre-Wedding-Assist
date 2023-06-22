@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export default class HomePage extends Component {
@@ -33,68 +33,83 @@ export default class HomePage extends Component {
         }
 
         return (
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Quantity</TableCell>
-                            <TableCell>Group</TableCell>
-                            <TableCell>Phone Number</TableCell>
-                            <TableCell>Attending</TableCell>
-                            <TableCell>Table</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {guests.map((guest) => (
-                            <TableRow key={guest.id}>
-                                <TableCell>{guest.name}</TableCell>
-                                <TableCell>{guest.quantity}</TableCell>
-                                <TableCell>{guest.group}</TableCell>
-                                <TableCell>{guest.phone_number}</TableCell>
-                                <TableCell>{guest.is_attending ? 'Yes' : 'No'}</TableCell>
-                                <TableCell>{guest.table ? guest.table : 'Not assigned'}</TableCell> {/* Display table name or "Not assigned" */}
-                                <TableCell>
-                                    <Button
-                                        color="primary"
-                                        variant="outlined"
-                                        size="small"
-                                        onClick={() => this.viewGuestDetails(guest.id)}
-                                    >
-                                        Assign To Table
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        variant="outlined"
-                                        size="small"
-                                        onClick={() => this.viewGuestDetails(guest.id)}
-                                    >
-                                        Edit Guest Details
-                                    </Button>
-                                </TableCell>
+            <div style={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+      }}>
+                <Typography variant="h4" align='center'>
+                        Guest List:
+                </Typography>
+                <TableContainer style={{border:'1px solid'}}>
+                    <Table title="hello">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Quantity</TableCell>
+                                <TableCell>Group</TableCell>
+                                <TableCell>Phone Number</TableCell>
+                                <TableCell>Attending</TableCell>
+                                <TableCell>Table</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {guests.map((guest) => (
+                                <TableRow key={guest.id}>
+                                    <TableCell>{guest.name}</TableCell>
+                                    <TableCell>{guest.quantity}</TableCell>
+                                    <TableCell>{guest.group}</TableCell>
+                                    <TableCell>{guest.phone_number}</TableCell>
+                                    <TableCell>{guest.is_attending ? 'Yes' : 'No'}</TableCell>
+                                    <TableCell>{guest.table ? guest.table : 'Not assigned'}</TableCell> {/* Display table name or "Not assigned" */}
+                                    <TableCell>
+                                        <Button
+                                            color="primary"
+                                            variant="outlined"
+                                            size="small"
+                                            onClick={() => this.viewGuestDetails(guest.id)}
+                                        >
+                                            Assign To Table
+                                        </Button>
+                                        <Button
+                                            color="primary"
+                                            variant="outlined"
+                                            size="small"
+                                            onClick={() => this.viewGuestDetails(guest.id)}
+                                        >
+                                            Edit Guest Details
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         );
     }
 
     render() {
         return (
-            <div alignItems='center'>
-                <div align='center'>
-                    <Button align='center' color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link}>Create A Guest</Button>
-                    <Button  color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
-                </div>
-                <div className='center'>
-                    <Typography variant="h6" gutterBottom>
-                        Guests
+            <Grid alignItems='center'>
+                <Grid item xs={12} align='center'>
+                    <Typography variant='h3' compact='h3'>
+                            Pre-Wedding-Assist
                     </Typography>
+                </Grid>
+                <Grid item xs={12} align='center'>
+                    <ButtonGroup disableElevation variant='contained' color='primary'>
+                        <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link}>Create A Guest</Button>
+                        <Button color='secondary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
+                    </ButtonGroup>
+                </Grid>
+                <Grid item xs={6}>
+                    
                     {this.renderGuestsTable()}
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         );
     }
 }
