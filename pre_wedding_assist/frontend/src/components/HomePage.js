@@ -77,7 +77,8 @@ export default class HomePage extends Component {
                                             color="primary"
                                             variant="outlined"
                                             size="small"
-                                            onClick={() => this.viewGuestDetails(guest.id)}
+                                            to={'/editGuest/' + guest.id}
+                                            component={Link}
                                         >
                                             Edit Guest Details
                                         </Button>

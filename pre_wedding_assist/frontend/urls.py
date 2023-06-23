@@ -4,6 +4,7 @@ urlpatterns = [
     path('', index),
     path('login', index),
     path('createGuest', index),
+    path('editGuest', index),
     path('createTable/', index),
     path('home/', index),
     path('guest/<int:id>/', index),

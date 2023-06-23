@@ -8,6 +8,7 @@ import CreateTablePage from './CreateTablePage';
 import GuestPage from './GuestPage';
 import TablePage from './TablePage';
 import AssignGuestToTablePage from './AssignGuestToTablePage';
+import EditGuestPage from './EditGuestPage';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, Routes } from 'react-router-dom';
 
 export default class App extends Component {
@@ -27,6 +28,7 @@ export default class App extends Component {
                     <Route path="/table/:id" element={<TablePage/>} />
                     <Route path="/guest/:id" element={<GuestPage/>} />
                     <Route exact path="/assignTable" element={<AssignGuestToTablePage/>} />
+                    <Route exact path="/editGuest/:id" element={<EditGuestPage/>} />
                 </Routes>
             </Router>
         );
