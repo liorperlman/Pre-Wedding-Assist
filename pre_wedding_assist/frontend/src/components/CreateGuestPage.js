@@ -80,6 +80,9 @@ export default class CreateGuestPage extends Component {
                     <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link} onClick={this.handleSubmit}>Create Guest</Button>
                 </FormControl>
             </Grid>
+            <Grid item xs={12} align='center'>
+                    <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
+            </Grid>
         </Grid>);
     }
 }

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import main, CreateWeddingView, CreateTableView, CreateGuestView, WeddingView, TableView, GuestView, GetGuest, GetTable, AssignGuestToTable, EditGuestView
+from .views import main, CreateWeddingView, CreateTableView, CreateGuestView, WeddingView, TableView, GuestView, GetGuest, GetTable, AssignGuestToTableView, EditGuestView
 
 urlpatterns = [
     path('', main),
@@ -11,6 +11,6 @@ urlpatterns = [
     path('guests', GuestView.as_view()),
     path('get-guest', GetGuest.as_view()),
     path('get-table', GetTable.as_view()),
-    path('assign-guest-to-table', AssignGuestToTable.as_view()),
+    path('assign-guest-to-table', AssignGuestToTableView.as_view()),
     path('edit-guest', EditGuestView.as_view()),
 ]

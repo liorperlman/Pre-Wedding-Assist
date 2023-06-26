@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-export default class HomePage extends Component {
+export default class DisplayTablesPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            guests: [], // Holds the guest data fetched from the server
+            tables: [], // Holds the guest data fetched from the server
         };
     }
 
     componentDidMount() {
-        this.fetchGuests();
+        this.fetchTables();
     }
     
-    fetchGuests() {
-        fetch('/user/guests')
+    fetchTables() {
+        fetch('/user/tables')
             .then((response) => response.json())
             .then((data) => {
-                this.setState({ guests: data });
+                this.setState({ tables: data });
             })
             .catch((error) => {
-                console.error('Error fetching guests:', error);
+                console.error('Error fetching tables:', error);
             });
     }
 
-    renderGuestsTable() {
-        const { guests } = this.state;
+    renderTablesTable() {
+        const { tables: tables } = this.state;
 
-        if (guests.length === 0) {
-            return <Typography variant="body1">No guests found.</Typography>;
+        if (tables.length === 0) {
+            return <Typography variant="body1">No tables found.</Typography>;
         }
 
         return (
@@ -40,36 +40,28 @@ export default class HomePage extends Component {
         transform: "translate(-50%, -50%)"
       }}>
                 <Typography variant="h4" align='center'>
-                        Guest List:
+                        Table List:
                 </Typography>
                 <TableContainer style={{border:'1px solid'}}>
-                    <Table>
+                    <Table title="hello">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Quantity</TableCell>
-                                <TableCell>Group</TableCell>
-                                <TableCell>Phone Number</TableCell>
-                                <TableCell>Attending</TableCell>
-                                <TableCell>Table</TableCell>
+                                <TableCell>Capacity</TableCell>
+                                <TableCell>Wedding</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {guests.map((guest) => (
-                                <TableRow key={guest.id}>
-                                    <TableCell>{guest.name}</TableCell>
-                                    <TableCell>{guest.quantity}</TableCell>
-                                    <TableCell>{guest.group}</TableCell>
-                                    <TableCell>{guest.phone_number}</TableCell>
-                                    <TableCell>{guest.is_attending ? 'Yes' : 'No'}</TableCell>
-                                    <TableCell>{guest.table ? guest.table : 'Not assigned'}</TableCell> {/* Display table name or "Not assigned" */}
+                            {tables.map((table) => (
+                                <TableRow key={table.id}>
+                                    <TableCell>{table.capacity}</TableCell>
+                                    <TableCell>{table.wedding ? table.wedding : 'Not assigned'}</TableCell> {/* Display wedding name or "Not assigned" */}
                                     <TableCell>
                                         <Button
                                             color="primary"
                                             variant="outlined"
                                             size="small"
-                                            to={'/assignGuestToTable/' + guest.id}
+                                            to={'/assignGuestToTable/' + table.id}
                                             component={Link}
                                         >
                                             Assign To Table
@@ -78,10 +70,10 @@ export default class HomePage extends Component {
                                             color="primary"
                                             variant="outlined"
                                             size="small"
-                                            to={'/editGuest/' + guest.id}
+                                            to={'/editGuest/' + table.id}
                                             component={Link}
                                         >
-                                            Edit Guest Details
+                                            Edit Table Details
                                         </Button>
                                     </TableCell>
                                 </TableRow>
@@ -104,18 +96,15 @@ export default class HomePage extends Component {
                 </Grid>
                 <Grid item xs={12} align='center'>
                     <ButtonGroup disableElevation variant='contained' color='primary'>
-                        <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link}>Create A Guest</Button>
-                        <Button color='secondary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
+                        <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
                     </ButtonGroup>
                 </Grid>
                 <Grid item xs={12} align='center'>
-                    <ButtonGroup disableElevation variant='contained' color='primary'>
-                        <Button color='secondary' variant='contained' name="display-tables" to='/displayTables' component={Link}>Display Tables</Button>
-                    </ButtonGroup>
+                    <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
                 </Grid>
                 <Grid item xs={6}>
                     
-                    {this.renderGuestsTable()}
+                    {this.renderTablesTable()}
                 </Grid>
             </Grid>
         );

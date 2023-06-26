@@ -4,10 +4,11 @@ urlpatterns = [
     path('', index),
     path('login', index),
     path('createGuest', index),
-    path('editGuest', index),
+    path('editGuest/<int:id>/', index),
     path('createTable/', index),
     path('home/', index),
     path('guest/<int:id>/', index),
     path('table/<int:id>/', index),
-    path('assignTable', index)
+    path('assignGuestToTable/<int:id>/', index),
+    path('displayTables/', index),
 ]

@@ -91,11 +91,11 @@ class EditGuestView(APIView):
     serializer_class = GuestSerializer
     lookup_url_kwarg = 'id'
     
-    def put(self, request, format=None, id=None):
-        id = request.GET.get(self.lookup_url_kwarg)
+    def post(self, request, format=None, id=None):
+        id = request.data.get(self.lookup_url_kwarg)
         if id != None:
-            guest = Guest.objects.filter(id=id)
-            serializer = self.serializer_class(guest, data=request.data, partial=True)
+            guest = Guest.objects.get(id=id)
+            serializer = self.serializer_class(guest, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -134,17 +134,17 @@ class GetTable(APIView):
         
         return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
     
-class AssignGuestToTable(APIView):
+class AssignGuestToTableView(APIView):
+    serializer_class = GuestSerializer
     lookup_url_kwarg = 'id'
     
-    def post(self, request, format=None):
+    def post(self, request, format=None, id=None):
         id = request.data.get(self.lookup_url_kwarg)
         if id != None:
-            table_result = Table.objects.filter(id=id)
-            if len(table_result) > 0:
-                table=table_result[0]
-                
-                return Response({'message': 'Table Joined'}, status=status.HTTP_200_OK)
-            return Response({'Bad Request': 'Invalid Table Number'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status.HTTP_400_BAD_REQUEST)
-    
+            guest = Guest.objects.get(id=id)
+            serializer = self.serializer_class(guest, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({'Guest Not Found': 'Invalid Guest Id'},status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Id paramater not found in request'},status=status.HTTP_400_BAD_REQUEST)

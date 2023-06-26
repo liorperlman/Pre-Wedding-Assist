@@ -76,7 +76,7 @@ class EditGuestPage extends Component {
       }
     handleSubmit() {
         const requestOptions = {
-            method: 'PUT',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.id,
@@ -87,7 +87,8 @@ class EditGuestPage extends Component {
                 is_attending: this.state.is_attending
             }),
         };
-        fetch('/user/edit-guest', requestOptions).then((response) => 
+        
+        fetch('/user/edit-guest' + '?id=' + this.id, requestOptions).then((response) => 
         response.json()
         ).then((data) => console.log(data));
     }
@@ -142,8 +143,11 @@ class EditGuestPage extends Component {
                             labelPlacement="bottom"
                         />
                     </RadioGroup>
-                    <Button color='primary' variant='contained' name="edit-guest" to='/editGuest' component={Link} onClick={this.handleSubmit}>Update Guest Details</Button>
+                    <Button color='primary' variant='contained' name="edit-guest" to='/home' component={Link} onClick={this.handleSubmit}>Update Guest Details</Button>
                 </FormControl>
+            </Grid>
+            <Grid item xs={12} align='center'>
+                    <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
             </Grid>
         </Grid>);
     }

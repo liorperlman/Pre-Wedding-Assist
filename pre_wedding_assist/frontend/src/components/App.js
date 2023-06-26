@@ -10,6 +10,7 @@ import TablePage from './TablePage';
 import AssignGuestToTablePage from './AssignGuestToTablePage';
 import EditGuestPage from './EditGuestPage';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, Routes } from 'react-router-dom';
+import DisplayTablesPage from './DisplayTablesPage';
 
 export default class App extends Component {
     constructor(props) {
@@ -27,8 +28,9 @@ export default class App extends Component {
                     <Route exact path="/createTable" element={<CreateTablePage/>} />
                     <Route path="/table/:id" element={<TablePage/>} />
                     <Route path="/guest/:id" element={<GuestPage/>} />
-                    <Route exact path="/assignTable" element={<AssignGuestToTablePage/>} />
-                    <Route exact path="/editGuest/:id" element={<EditGuestPage/>} />
+                    <Route path="/assignGuestToTable/:id" element={<AssignGuestToTablePage/>} />
+                    <Route path="/editGuest/:id" element={<EditGuestPage/>} />
+                    <Route exact path="/displayTables" element={<DisplayTablesPage/>} />
                 </Routes>
             </Router>
         );
