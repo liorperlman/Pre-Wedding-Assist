@@ -30,6 +30,7 @@ export default class App extends Component {
                     <Route path="/guest/:id" element={<GuestPage/>} />
                     <Route path="/assignGuestToTable/:id" element={<AssignGuestToTablePage/>} />
                     <Route path="/editGuest/:id" element={<EditGuestPage/>} />
+                    <Route path="/getGuestsForTable/:table_number" element={<LoginPage/>} />
                     <Route exact path="/displayTables" element={<DisplayTablesPage/>} />
                 </Routes>
             </Router>

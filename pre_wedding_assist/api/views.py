@@ -18,8 +18,10 @@ class WeddingView(generics.ListAPIView):
     serializer_class = WeddingSerializer
     
 class TableView(generics.ListAPIView):
-    queryset = Table.objects.all()
-    serializer_class = TableSerializer
+    def get(self, request, format=None):
+        tables = Table.objects.all()
+        serializer = TableSerializer(tables, many=True)
+        return Response(serializer.data)
     
 class GuestView(generics.ListAPIView):
     queryset = Guest.objects.all()
@@ -148,3 +150,23 @@ class AssignGuestToTableView(APIView):
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response({'Guest Not Found': 'Invalid Guest Id'},status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Id paramater not found in request'},status=status.HTTP_400_BAD_REQUEST)
+    
+class GetGuestsForTable(APIView):
+    serializer_class = GuestSerializer
+    lookup_url_kwarg = 'table_number'
+
+    def get(self, request, format=None):
+        table_number = request.GET.get(self.lookup_url_kwarg)
+        
+        if table_number != None:
+            guests = Guest.objects.filter(table=table_number)
+            if len(guests) > 0:
+                data = GuestSerializer(guests[0]).data
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({'Guests Not Found': 'No Guest Match The Table'})
+        
+        return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+        

@@ -14,6 +14,10 @@ class Table(models.Model):
     capacity = models.IntegerField(default=2, null=False)
     wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE, null=True, blank=True)
 
+    @property
+    def guests(self):
+        return Guest.objects.filter(table=self)
+    
     def __str__(self):
         return "Table capacity: " + str(self.capacity)
     
@@ -24,7 +28,7 @@ class Guest(models.Model):
     group = models.CharField(max_length=50, default='')
     phone_number = models.CharField(max_length=20, default='', unique=True)
     is_attending = models.BooleanField()
-    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True, blank=True)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True, blank=True, related_name='guests')
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

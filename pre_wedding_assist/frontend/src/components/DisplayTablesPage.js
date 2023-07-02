@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import VenueLayout from './VenueLayout';
+import WeddingVenue from './WeddingVenue';
 
 export default class DisplayTablesPage extends Component {
     constructor(props) {
@@ -17,7 +19,7 @@ export default class DisplayTablesPage extends Component {
     fetchTables() {
         fetch('/user/tables')
             .then((response) => response.json())
-            .then((data) => {
+            .then((data) => {            
                 this.setState({ tables: data });
             })
             .catch((error) => {
@@ -48,14 +50,19 @@ export default class DisplayTablesPage extends Component {
                             <TableRow>
                                 <TableCell>Capacity</TableCell>
                                 <TableCell>Wedding</TableCell>
+                                <TableCell>Guests</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {tables.map((table) => (
                                 <TableRow key={table.id}>
-                                    <TableCell>{table.capacity}</TableCell>
+                                    <TableCell>{table.guests.length + '/' + table.capacity}</TableCell>
                                     <TableCell>{table.wedding ? table.wedding : 'Not assigned'}</TableCell> {/* Display wedding name or "Not assigned" */}
+                                    <TableCell>{table.guests.map((guest) => (
+                                                <span key={guest.id}>{guest.name}, </span>
+                                                ))}
+                                    </TableCell>
                                     <TableCell>
                                         <Button
                                             color="primary"
@@ -82,7 +89,6 @@ export default class DisplayTablesPage extends Component {
                     </Table>
                 </TableContainer>
             </div>
-            
         );
     }
 
@@ -106,6 +112,12 @@ export default class DisplayTablesPage extends Component {
                     
                     {this.renderTablesTable()}
                 </Grid>
+
+                <Grid item xs={12}>
+                    
+                    <VenueLayout/>
+                </Grid>
+                
             </Grid>
         );
     }
