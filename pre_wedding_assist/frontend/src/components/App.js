@@ -11,6 +11,7 @@ import AssignGuestToTablePage from './AssignGuestToTablePage';
 import EditGuestPage from './EditGuestPage';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, Routes } from 'react-router-dom';
 import DisplayTablesPage from './DisplayTablesPage';
+import VenueLayout from './VenueLayout';
 
 export default class App extends Component {
     constructor(props) {
@@ -32,6 +33,9 @@ export default class App extends Component {
                     <Route path="/editGuest/:id" element={<EditGuestPage/>} />
                     <Route path="/getGuestsForTable/:table_number" element={<LoginPage/>} />
                     <Route exact path="/displayTables" element={<DisplayTablesPage/>} />
+                    <Route exact path="/showVenue" element={<VenueLayout/>} />
+
+                    
                 </Routes>
             </Router>
         );

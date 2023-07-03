@@ -145,10 +145,12 @@ class AssignGuestToTableView(APIView):
         if id != None:
             guest = Guest.objects.get(id=id)
             serializer = self.serializer_class(guest, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response({'Guest Not Found': 'Invalid Guest Id'},status=status.HTTP_404_NOT_FOUND)
+            if guest.table.current_guests_count + guest.quantity <= guest.table.capacity:
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response({'Guest Not Found': 'Invalid Guest Id'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'Table Is Full': 'Not Enough Room For The Guest'},status=status.HTTP_406_NOT_ACCEPTABLE)
         return Response({'Bad Request': 'Id paramater not found in request'},status=status.HTTP_400_BAD_REQUEST)
     
 class GetGuestsForTable(APIView):

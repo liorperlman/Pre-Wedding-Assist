@@ -57,7 +57,7 @@ export default class DisplayTablesPage extends Component {
                         <TableBody>
                             {tables.map((table) => (
                                 <TableRow key={table.id}>
-                                    <TableCell>{table.guests.length + '/' + table.capacity}</TableCell>
+                                    <TableCell>{table.guests.reduce((total, guest) => total + guest.quantity, 0) + '/' + table.capacity}</TableCell>
                                     <TableCell>{table.wedding ? table.wedding : 'Not assigned'}</TableCell> {/* Display wedding name or "Not assigned" */}
                                     <TableCell>{table.guests.map((guest) => (
                                                 <span key={guest.id}>{guest.name}, </span>
@@ -115,7 +115,8 @@ export default class DisplayTablesPage extends Component {
 
                 <Grid item xs={12}>
                     
-                    <VenueLayout/>
+                    <Button color='primary' variant='contained' name="show-venue" to='/showVenue' component={Link}>Show Venue Layout</Button>
+
                 </Grid>
                 
             </Grid>

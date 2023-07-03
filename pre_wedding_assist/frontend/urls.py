@@ -12,4 +12,5 @@ urlpatterns = [
     path('assignGuestToTable/<int:id>/', index),
     path('displayTables/', index),
     path('getGuestsForTable/<int:table_number>/', index),
+    path('showVenue', index),
 ]

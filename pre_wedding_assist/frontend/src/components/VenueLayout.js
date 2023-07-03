@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Button, ButtonGroup, Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
 
 class VenueLayout extends Component {
 
@@ -158,44 +161,53 @@ class VenueLayout extends Component {
         const { tables, guests } = this.state;
 
         return (
-            <div
-                id="venue-layout"
-                className="venue-layout"
+            <div id='venue-container'
+                className='venue-container'
                 style={{
                     position: 'relative',
-                    width: '800px',
-                    height: '600px',
-                    background: '#f2f2f2',
-                    border: '1px solid #ccc',
-                }}
-            >
-                {tables.map((table) => (
-                    <div
-                        key={table.id}
-                        className="table"
-                        style={{
-                            position: 'absolute',
-                            left: table.x,
-                            top: table.y,
-                            width: `${100}px`,
-                            height: `${table.capacity * 20}px`,
-                            background: '#fff',
-                            border: '1px solid #999',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            cursor: 'move',
+                        height: '800px',
+                }}>
+                <div
+                    id="venue-layout"
+                    className="venue-layout"
+                    style={{
+                        position: 'relative',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '1200px',
+                        height: '800px',
+                        background: '#f2f2f2',
+                        border: '1px solid #ccc',
+                    }}
+                >
+                    {tables.map((table) => (
+                        <div
+                            key={table.id}
+                            className="table"
+                            style={{
+                                position: 'absolute',
+                                left: table.x,
+                                top: table.y,
+                                width: `${100}px`,
+                                height: `${table.capacity * 20}px`,
+                                background: '#fff',
+                                border: '1px solid #999',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                cursor: 'move',
 
-                        }}
-                        onMouseDown={(event) => this.handleTableMouseDown(event, table.id)}
-                        onDrop={(event) => this.handleTableDrop(event, table.id)}
-                        onDragOver={this.handleTableDragOver}
-                    >
-                        {table.id}
-                    </div>
-                ))}
-
+                            }}
+                            onMouseDown={(event) => this.handleTableMouseDown(event, table.id)}
+                            onDrop={(event) => this.handleTableDrop(event, table.id)}
+                            onDragOver={this.handleTableDragOver}
+                        >
+                            {table.id}
+                        </div>
+                    ))}
+                </div>
                 <div
                     className="guest-list-container"
                     style={{
@@ -217,19 +229,6 @@ class VenueLayout extends Component {
                         </React.Fragment>
                     ))}
                 </div>
-
-                {/* <div
-          className="guest-list-container"
-          style={{
-            position: 'absolute',
-            bottom: '10px',
-            right: '10px',
-            maxWidth: '200px',
-          }}
-        >
-          <h3>All Guests</h3>
-          {this.renderGuestList(guests)}
-        </div> */}
                 <div className="guest-list-container" style={{
                     position: 'absolute',
                     bottom: '10px',
@@ -251,6 +250,12 @@ class VenueLayout extends Component {
                         ))}
                     </ul>
                 </div>
+                <Grid item xs={12} align='center'>
+                    <ButtonGroup disableElevation variant='contained' color='primary'>
+                            <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Submit Layout</Button>
+                            <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
+                    </ButtonGroup>
+                </Grid>
             </div>
         );
     }

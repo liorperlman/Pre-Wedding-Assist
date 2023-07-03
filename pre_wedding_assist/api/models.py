@@ -18,6 +18,10 @@ class Table(models.Model):
     def guests(self):
         return Guest.objects.filter(table=self)
     
+    @property
+    def current_guests_count(self):
+        return sum(guest.quantity for guest in Guest.objects.filter(table=self))
+    
     def __str__(self):
         return "Table capacity: " + str(self.capacity)
     
