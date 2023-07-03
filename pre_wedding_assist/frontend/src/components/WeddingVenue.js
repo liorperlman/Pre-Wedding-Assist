@@ -1,198 +1,198 @@
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
-// import './WeddingVenue.css'; // Styles for the component
+import './css/WeddingVenue.css'; // Styles for the component
 
 
 
 
-// const WeddingVenue = () => {
+const WeddingVenue = () => {
 
-//   const [guests, setGuests] = useState([
+  const [guests, setGuests] = useState([
 
-//     { id: 1, name: 'Guest 1', table: null },
+    { id: 1, name: 'Guest 1', table: null },
 
-//     { id: 2, name: 'Guest 2', table: null },
+    { id: 2, name: 'Guest 2', table: null },
 
-//     { id: 3, name: 'Guest 3', table: null },
+    { id: 3, name: 'Guest 3', table: null },
 
-//     { id: 4, name: 'Guest 4', table: null },
+    { id: 4, name: 'Guest 4', table: null },
 
-//     // ... Add more guests here
+    // ... Add more guests here
 
-//   ]);
+  ]);
 
 
 
 
-//   const [tables, setTables] = useState([
+  const [tables, setTables] = useState([
 
-//     { id: 1, number: 1, guests: [] },
+    { id: 1, number: 1, guests: [] },
 
-//     { id: 2, number: 2, guests: [] },
+    { id: 2, number: 2, guests: [] },
 
-//     { id: 3, number: 3, guests: [] },
+    { id: 3, number: 3, guests: [] },
 
-//     { id: 4, number: 4, guests: [] },
+    { id: 4, number: 4, guests: [] },
 
-//     // ... Add more tables here
+    // ... Add more tables here
 
-//   ]);
+  ]);
 
 
 
 
-//   const handleGuestDragStart = (event, guest) => {
+  const handleGuestDragStart = (event, guest) => {
 
-//     event.dataTransfer.setData('text/plain', guest.id);
+    event.dataTransfer.setData('text/plain', guest.id);
 
-//   };
+  };
 
 
 
 
-//   const handleTableDrop = (event, tableId) => {
+  const handleTableDrop = (event, tableId) => {
 
-//     event.preventDefault();
+    event.preventDefault();
 
-//     const guestId = parseInt(event.dataTransfer.getData('text/plain'));
+    const guestId = parseInt(event.dataTransfer.getData('text/plain'));
 
-//     const updatedGuests = guests.map((guest) => {
+    const updatedGuests = guests.map((guest) => {
 
-//       if (guest.id === guestId) {
+      if (guest.id === guestId) {
 
-//         return { ...guest, table: tableId };
+        return { ...guest, table: tableId };
 
-//       }
+      }
 
-//       return guest;
+      return guest;
 
-//     });
+    });
 
-//     setGuests(updatedGuests);
+    setGuests(updatedGuests);
 
-//     updateTableGuests(tableId, guestId);
+    updateTableGuests(tableId, guestId);
 
-//   };
+  };
 
 
 
 
-//   const handleTableDragOver = (event) => {
+  const handleTableDragOver = (event) => {
 
-//     event.preventDefault();
+    event.preventDefault();
 
-//   };
+  };
 
 
 
 
-//   const updateTableGuests = (tableId, guestId) => {
+  const updateTableGuests = (tableId, guestId) => {
 
-//     const updatedTables = tables.map((table) => {
+    const updatedTables = tables.map((table) => {
 
-//       if (table.id === tableId) {
+      if (table.id === tableId) {
 
-//         const updatedGuests = [...table.guests, guestId];
+        const updatedGuests = [...table.guests, guestId];
 
-//         return { ...table, guests: updatedGuests };
+        return { ...table, guests: updatedGuests };
 
-//       }
+      }
 
-//       return table;
+      return table;
 
-//     });
+    });
 
-//     setTables(updatedTables);
+    setTables(updatedTables);
 
-//   };
+  };
 
 
 
 
-//   const getGuestTable = (guestId) => {
+  const getGuestTable = (guestId) => {
 
-//     const guest = guests.find((guest) => guest.id === guestId);
+    const guest = guests.find((guest) => guest.id === guestId);
 
-//     return guest ? guest.table : null;
+    return guest ? guest.table : null;
 
-//   };
+  };
 
 
 
 
-//   return (
+  return (
 
-//     <div className="wedding-venue">
+    <div className="wedding-venue">
 
-//       <div className="venue-area" style={{ width: '75%' }}>
+      <div className="venue-area" style={{ width: '75%' }}>
 
-//         {tables.map((table) => (
+        {tables.map((table) => (
 
-//           <div
+          <div
 
-//             key={table.id}
+            key={table.id}
 
-//             className="table"
+            className="table"
 
-//             onDrop={(event) => handleTableDrop(event, table.id)}
+            onDrop={(event) => handleTableDrop(event, table.id)}
 
-//             onDragOver={handleTableDragOver}
+            onDragOver={handleTableDragOver}
 
-//           >
+          >
 
-//             <span>Table {table.number}</span>
+            <span>Table {table.number}</span>
 
-//             <ul>
+            <ul>
 
-//               {table.guests.map((guestId) => (
+              {table.guests.map((guestId) => (
 
-//                 <li key={guestId}>{`Guest ${guestId}`}</li>
+                <li key={guestId}>{`Guest ${guestId}`}</li>
 
-//               ))}
+              ))}
 
-//             </ul>
+            </ul>
 
-//           </div>
+          </div>
 
-//         ))}
+        ))}
 
-//       </div>
+      </div>
 
-//       <div className="guest-list" style={{ width: '25%' }}>
+      <div className="guest-list" style={{ width: '25%' }}>
 
-//         <h3>Guest List</h3>
+        <h3>Guest List</h3>
 
-//         <ul>
+        <ul>
 
-//           {guests.map((guest) => (
+          {guests.map((guest) => (
 
-//             <li
+            <li
 
-//               key={guest.id}
+              key={guest.id}
 
-//               draggable
+              draggable
 
-//               onDragStart={(event) => handleGuestDragStart(event, guest)}
+              onDragStart={(event) => handleGuestDragStart(event, guest)}
 
-//             >
+            >
 
-//               {guest.name} - Table: {getGuestTable(guest.id)}
+              {guest.name} - Table: {getGuestTable(guest.id)}
 
-//             </li>
+            </li>
 
-//           ))}
+          ))}
 
-//         </ul>
+        </ul>
 
-//       </div>
+      </div>
 
-//     </div>
+    </div>
 
-//   );
+  );
 
-// };
+};
 
 
 
 
-// export default WeddingVenue;
+export default WeddingVenue;
