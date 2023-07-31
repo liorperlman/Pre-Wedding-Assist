@@ -13,6 +13,7 @@ class VenueLayout extends Component {
             selectedTableId: null,
             offsetX: 0,
             offsetY: 0,
+            isLocked: false, // Variable for locking tables
         };
     }
 
@@ -45,6 +46,9 @@ class VenueLayout extends Component {
 
     handleTableMouseDown = (event, tableId) => {
         event.stopPropagation();
+        if (this.state.isLocked) {
+            return; // Return early if tables are locked
+        }
         this.setState({
             selectedTableId: tableId,
             offsetX: event.nativeEvent.offsetX,
@@ -55,6 +59,9 @@ class VenueLayout extends Component {
     };
 
     handleTableMouseMove = (event) => {
+        if (this.state.isLocked) {
+            return; // Return early if tables are locked
+        }
         const { selectedTableId, offsetX, offsetY } = this.state;
         const { clientX, clientY } = event;
         const venueLayout = document.getElementById('venue-layout');
@@ -71,6 +78,9 @@ class VenueLayout extends Component {
     };
 
     handleTableMouseUp = () => {
+        if (this.state.isLocked) {
+            return; // Return early if tables are locked
+        }
         this.setState({
             selectedTableId: null,
             offsetX: 0,
@@ -86,10 +96,10 @@ class VenueLayout extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 id: guestId,
-                table: tableId
+                table_number: tableId
             })
         };
-        fetch('/user/assign-guest-to-table' + '?id=' + guestId, requestOptions).then((response) =>
+        fetch('/user/assign-guest-to-table', requestOptions).then((response) =>
             response.json()
         ).then((data) => {
             // Update the guest list state with the updated data
@@ -141,7 +151,11 @@ class VenueLayout extends Component {
         });
     };
 
-
+    handleLockButtonClick = () => {
+        this.setState((prevState) => ({
+            isLocked: !prevState.isLocked, // Toggle the lock state
+        }));
+    };
 
     renderGuestList = (table) => {
         const { guests } = this.state;
@@ -158,7 +172,7 @@ class VenueLayout extends Component {
       
 
     render() {
-        const { tables, guests } = this.state;
+        const { tables, guests, isLocked } = this.state;
 
         return (
             <div id='venue-container'
@@ -254,6 +268,9 @@ class VenueLayout extends Component {
                     <ButtonGroup disableElevation variant='contained' color='primary'>
                             <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Submit Layout</Button>
                             <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
+                            <Button variant='contained' color='secondary' onClick={this.handleLockButtonClick}>
+                                {isLocked ? 'Unlock Tables' : 'Lock Tables'}
+                            </Button>
                     </ButtonGroup>
                 </Grid>
             </div>

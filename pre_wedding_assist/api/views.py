@@ -138,14 +138,17 @@ class GetTable(APIView):
     
 class AssignGuestToTableView(APIView):
     serializer_class = GuestSerializer
-    lookup_url_kwarg = 'id'
+    lookup_url_kwarg = ['id','table_number']
     
-    def post(self, request, format=None, id=None):
-        id = request.data.get(self.lookup_url_kwarg)
-        if id != None:
+    def post(self, request, format=None, id=None, table_number=None):
+        id = request.data.get(self.lookup_url_kwarg[0])
+        table_number = request.data.get(self.lookup_url_kwarg[1])
+        if id != None and table_number !=None:
             guest = Guest.objects.get(id=id)
+            table = Table.objects.get(id=table_number)
+            guest.table = table
             serializer = self.serializer_class(guest, data=request.data, partial=True)
-            if guest.table.current_guests_count + guest.quantity <= guest.table.capacity:
+            if table.current_guests_count + guest.quantity <= table.capacity:
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_200_OK)

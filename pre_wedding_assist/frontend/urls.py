@@ -9,7 +9,7 @@ urlpatterns = [
     path('home/', index),
     path('guest/<int:id>/', index),
     path('table/<int:id>/', index),
-    path('assignGuestToTable/<int:id>/', index),
+    path('assignGuestToTable/', index),
     path('displayTables/', index),
     path('getGuestsForTable/<int:table_number>/', index),
     path('showVenue', index),

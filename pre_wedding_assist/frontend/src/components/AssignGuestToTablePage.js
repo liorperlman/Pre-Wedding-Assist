@@ -43,10 +43,10 @@ class AssignGuestToTablePage extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 id: this.id,
-                table: this.state.table
+                table_number: this.state.table
             })
         };
-        fetch('/user/assign-guest-to-table' + '?id=' + this.id, requestOptions).then((response) => 
+        fetch('/user/assign-guest-to-table', requestOptions).then((response) => 
         response.json()
         ).then((data) => console.log(data));
     }
