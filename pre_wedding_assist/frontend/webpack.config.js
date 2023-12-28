@@ -20,6 +20,18 @@ module.exports = {
         test: /\.css$/, 
         use: ['style-loader', 'css-loader'], 
       },
+      {
+        test: /\.(png|gif)$/,
+        use: ['file-loader'],
+      },
+      {
+        test: /\.(jpeg|jpg|svg)$/i,
+        loader: 'url-loader',
+        options: {
+          outputPath: 'images',
+          esModule: false
+        },
+      },
     ],
   },
   optimization: {

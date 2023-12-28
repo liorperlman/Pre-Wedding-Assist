@@ -104,6 +104,21 @@ class EditGuestView(APIView):
             return Response({'Guest Not Found': 'Invalid Guest Id'},status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Id paramater not found in request'},status=status.HTTP_400_BAD_REQUEST)
 
+class EditTableView(APIView):
+    serializer_class = TableSerializer
+    lookup_url_kwarg = 'id'
+    
+    def post(self, request, format=None, id=None):
+        id = request.data.get(self.lookup_url_kwarg)
+        if id != None:
+            table = Table.objects.get(id=id)
+            serializer = self.serializer_class(table, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({'Table Not Found': 'Invalid Table Id'},status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Id paramater not found in request'},status=status.HTTP_400_BAD_REQUEST)
+
 class GetGuest(APIView):
     serializer_class = GuestSerializer
     lookup_url_kwarg = 'id'

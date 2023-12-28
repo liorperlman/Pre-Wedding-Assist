@@ -77,7 +77,7 @@ export default class DisplayTablesPage extends Component {
                                             color="primary"
                                             variant="outlined"
                                             size="small"
-                                            to={'/editGuest/' + table.id}
+                                            to={'/editTable/' + table.id}
                                             component={Link}
                                         >
                                             Edit Table Details

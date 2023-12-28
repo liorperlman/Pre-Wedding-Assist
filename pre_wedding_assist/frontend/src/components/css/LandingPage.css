@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .page-container {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* You can adjust the z-index as needed */
+    background-color: #ffffff; /* Set the background color of the fixed header */
+    box-shadow: 0 2px;
+  }
+  
+  header {
+    background-color: #f9f9f991;
+    padding: 10px 0;
+  }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30vh; /* Adjust the height as needed for vertical centering */
+    text-align: center;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust the margin as needed */
+}
+
+.contact-icons a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contact-icons img {
+    width: 40px; /* Adjust the width as needed */
+    height: auto;
+    margin: 0 10px; /* Adjust the margin as needed */
+}
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu li {
+    display: inline-block;
+    margin-left: 20px;
+  }
+  
+  .menu li a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .menu li a:hover {
+    color: #ff6600;
+  }
+  
+  .hero {
+    /* background-image: url('../images/landing_page_background.png'); */
+    background-size: cover;
+    background-position: center;
+    /* background-repeat: no-repeat; */
+    /* color: #fff; */
+    text-align: center;
+    padding: 150px 0;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .cta-btn {
+    display: inline-block;
+    background-color: #ff6600;
+    color: #fff;
+    font-size: 20px;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .cta-btn:hover {
+    background-color: #ff884d;
+  }
+  
+  .about {
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .about h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  .services {
+    background-color: #f9f9f9;
+    padding: 100px 0;
+  }
+  
+  .services h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  .services ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .services li {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    align-items: center;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: auto;
+  }
+  
+  main {
+    min-height: 100%;
+  }
