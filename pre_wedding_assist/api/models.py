@@ -13,7 +13,9 @@ class Wedding(models.Model):
 class Table(models.Model):
     capacity = models.IntegerField(default=2, null=False)
     wedding = models.ForeignKey(Wedding, on_delete=models.CASCADE, null=True, blank=True)
-
+    x = models.FloatField(default=0)
+    y = models.FloatField(default=0)
+    
     @property
     def guests(self):
         return Guest.objects.filter(table=self)
@@ -37,5 +39,4 @@ class Guest(models.Model):
     
     def __str__(self):
         return "Name: " + self.name + ", Quantity: " + str(self.quantity)
-    
     

@@ -47,9 +47,6 @@ class GuestPage extends Component {
                 <p>Group: {this.state.group.toString()}</p>
                 <p>Phone Number: {this.state.phone_number.toString()}</p>
                 <p>Attending: {this.state.is_attending.toString()}</p>
-                
-                
-
             </div>
         );
     }

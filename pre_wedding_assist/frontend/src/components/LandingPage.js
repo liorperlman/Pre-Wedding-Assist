@@ -22,7 +22,7 @@ export default class LandingPage extends Component {
                     <meta charset="UTF-8"/>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                     <title>Wedding Organizer</title>
-                    {/* <link rel="stylesheet" href="./css/LandingPage.css"/> */}
+                    <link rel="stylesheet" src="./css/LandingPage.css"/>
                 <body>
                 <header className="fixed-header">
                     <nav>
@@ -30,7 +30,7 @@ export default class LandingPage extends Component {
                         <a href="#" class="logo">Wedding Organizer</a>
                         <ul class="menu">
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#about">Vision</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <Button className='center' color='primary' variant='contained' name="login" to='/login' component={Link}>Login</Button>
                         </ul>
@@ -41,7 +41,7 @@ export default class LandingPage extends Component {
                 <main>
                     <section className="hero">
                     <div className="container" style={{background: {backgroundImage}}}>
-                        <img src={backgroundImage} alt="Instagram" />
+                        <img src={backgroundImage} alt="Instagram"/>
                         <h1>Plan Your Dream Wedding with Us</h1>
                         <p>We make wedding planning easy and stress-free.</p>
                         <a href="#contact" class="cta-btn">Get Started</a>
@@ -63,8 +63,8 @@ export default class LandingPage extends Component {
 
                     <section class="about" id="about">
                     <div class="container">
-                        <h2>About Us</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Donec nec dui in mi consectetur tempus.</p>
+                        <h2>Our Vision</h2>
+                        <p>Welcome to our wedding planning hub! Here, we're all about making wedding planning a breeze for everyone. Imagine planning your dream wedding without breaking the bank or getting lost in complicated tools. That's exactly what we're here for! Our vision is to empower you, yes, you, to easily and affordably plan the wedding you've always dreamed of. We're here to make wedding planning fun, stress-free, and, most importantly, uniquely yours. Cheers to making your special day as awesome as you've always imagined!</p>
                     </div>
                     </section>
 
@@ -83,9 +83,6 @@ export default class LandingPage extends Component {
                                 </a>
                                 <a href="https://instagram.com/example" target="_blank" rel="noopener noreferrer">
                                     <img src={instagramIcon} alt="Instagram" />
-                                </a>
-                                <a href="https://instagram.com/example" target="_blank" rel="noopener noreferrer">
-                                    <img src={backgroundImage} alt="Instagram" />
                                 </a>
                             </div>
                         </div>

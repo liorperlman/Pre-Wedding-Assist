@@ -47,7 +47,7 @@ export default class CreateTablePage extends Component {
                         style: { textAlign: 'center'}
                     }}
                     />
-                    <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link} onClick={this.handleSubmit}>Create Table</Button>
+                    <Button color='primary' variant='contained' name="create-table" to='/displayTables' component={Link} onClick={this.handleSubmit}>Create Table</Button>
                 </FormControl>
             </Grid>
             <Grid item xs={12} align='center'>

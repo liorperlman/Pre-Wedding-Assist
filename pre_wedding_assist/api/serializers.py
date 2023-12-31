@@ -16,7 +16,7 @@ class TableSerializer(serializers.ModelSerializer):
     guests = GuestSerializer(many=True, read_only=True)
     class Meta:
         model = Table
-        fields = ('id', 'capacity', 'wedding', 'guests')
+        fields = ('id', 'capacity', 'wedding', 'guests', 'x', 'y')
         
 class CreateWeddingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +26,7 @@ class CreateWeddingSerializer(serializers.ModelSerializer):
 class CreateTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
-        fields = ('capacity', 'wedding')
+        fields = ('capacity', 'wedding', 'x', 'y')
 
 class CreateGuestSerializer(serializers.ModelSerializer):
     class Meta:

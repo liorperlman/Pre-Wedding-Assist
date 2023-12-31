@@ -77,7 +77,7 @@ export default class CreateGuestPage extends Component {
                         style: { textAlign: 'center'}
                     }}
                     />
-                    <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link} onClick={this.handleSubmit}>Create Guest</Button>
+                    <Button color='primary' variant='contained' name="create-guest" to='/home' component={Link} onClick={this.handleSubmit}>Create Guest</Button>
                 </FormControl>
             </Grid>
             <Grid item xs={12} align='center'>

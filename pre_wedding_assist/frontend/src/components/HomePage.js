@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import './css/HomePage.css';
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -33,12 +34,7 @@ export default class HomePage extends Component {
         }
 
         return (
-            <div style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)"
-      }}>
+            <div >
                 <Typography variant="h4" align='center'>
                         Guest List:
                 </Typography>
@@ -96,28 +92,56 @@ export default class HomePage extends Component {
 
     render() {
         return (
-            <Grid alignItems='center'>
-                <Grid item xs={12} align='center'>
-                    <Typography variant='h3' compact='h3'>
-                            Pre-Wedding-Assist
+            <div className="page-container">
+                <Grid container alignItems='center' spacing={3}>
+                    <Grid item xs={12} align='center'>
+                    <Typography variant='h3' color='primary'>
+                        Welcome to Pre-Wedding-Assist
                     </Typography>
-                </Grid>
-                <Grid item xs={12} align='center'>
+                    </Grid>
+                    <Grid item xs={12} align='center'>
                     <ButtonGroup disableElevation variant='contained' color='primary'>
-                        <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link}>Create A Guest</Button>
-                        <Button color='secondary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
+                        <Button color='primary' variant='contained' name="create-guest" to='/createGuest' component={Link}>
+                        Create A Guest
+                        </Button>
+                        <Button color='secondary' variant='contained' name="create-table" to='/createTable' component={Link}>
+                        Create A Table
+                        </Button>
                     </ButtonGroup>
-                </Grid>
-                <Grid item xs={12} align='center'>
+                    </Grid>
+                    <Grid item xs={12} align='center'>
                     <ButtonGroup disableElevation variant='contained' color='primary'>
-                        <Button color='secondary' variant='contained' name="display-tables" to='/displayTables' component={Link}>Display Tables</Button>
+                        <Button color='secondary' variant='contained' name="display-tables" to='/displayTables' component={Link}>
+                        Display Tables
+                        </Button>
                     </ButtonGroup>
+                    </Grid>
+                    <Grid item xs={12} align='center'>
+                        <Typography variant='h4' color='primary'>
+                            Your Wedding Planning Journey Starts Here
+                        </Typography>
+                        <Typography variant='body1'>
+                            Congratulations on your upcoming wedding! Pre-Wedding-Assist is here to make your wedding planning journey smooth and stress-free. Explore the features and tools to manage your guest list, create seating arrangements, and more.
+                        </Typography>
+                        <Typography variant='body1'>
+                            Quick Actions:
+                        </Typography>
+                        <ul>
+                            <li>Create A Guest: Add your guests and manage their details.</li>
+                            <li>Create A Table: Plan your seating arrangements with ease.</li>
+                            <li>Display Tables: View and organize your created tables.</li>
+                        </ul>
+                        <Typography variant='body1'>
+                            Need assistance? Feel free to reach out to our support team.
+                        </Typography>
+                    </Grid>
+                    <div className='guest-table'>
+                        <Grid item xs={12}>
+                            {this.renderGuestsTable()}
+                        </Grid>
+                    </div>
                 </Grid>
-                <Grid item xs={6}>
-                    
-                    {this.renderGuestsTable()}
-                </Grid>
-            </Grid>
+            </div>
         );
     }
 }

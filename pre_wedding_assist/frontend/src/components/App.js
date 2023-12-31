@@ -9,6 +9,7 @@ import GuestPage from './GuestPage';
 import TablePage from './TablePage';
 import AssignGuestToTablePage from './AssignGuestToTablePage';
 import EditGuestPage from './EditGuestPage';
+import EditTablePage from './EditTablePage';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, Routes } from 'react-router-dom';
 import DisplayTablesPage from './DisplayTablesPage';
 import VenueLayout from './VenueLayout';
@@ -31,11 +32,10 @@ export default class App extends Component {
                     <Route path="/guest/:id" element={<GuestPage/>} />
                     <Route path="/assignGuestToTable/:id" element={<AssignGuestToTablePage/>} />
                     <Route path="/editGuest/:id" element={<EditGuestPage/>} />
+                    <Route path="/editTable/:id" element={<EditTablePage/>} />
                     <Route path="/getGuestsForTable/:table_number" element={<LoginPage/>} />
                     <Route exact path="/displayTables" element={<DisplayTablesPage/>} />
                     <Route exact path="/showVenue" element={<VenueLayout/>} />
-
-                    
                 </Routes>
             </Router>
         );

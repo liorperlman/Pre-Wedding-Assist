@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Grid, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import './css/DisplayTablesPage.css';
 import VenueLayout from './VenueLayout';
 import WeddingVenue from './WeddingVenue';
 
@@ -35,12 +36,7 @@ export default class DisplayTablesPage extends Component {
         }
 
         return (
-            <div style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)"
-      }}>
+            <div>
                 <Typography variant="h4" align='center'>
                         Table List:
                 </Typography>
@@ -68,15 +64,6 @@ export default class DisplayTablesPage extends Component {
                                             color="primary"
                                             variant="outlined"
                                             size="small"
-                                            to={'/assignGuestToTable/' + table.id}
-                                            component={Link}
-                                        >
-                                            Assign To Table
-                                        </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="outlined"
-                                            size="small"
                                             to={'/editTable/' + table.id}
                                             component={Link}
                                         >
@@ -92,34 +79,91 @@ export default class DisplayTablesPage extends Component {
         );
     }
 
+    renderButtonManual() {
+        return (
+          <div align='center'>
+            <ul style={{ marginTop: '10px' }}>
+              <li>
+                <strong>Create A Table:</strong> Click this button to create a new table. You can set
+                the capacity of the table during the creation process.
+              </li>
+              <li>
+                <strong>Show Venue Layout:</strong> Click this button to view the layout of tables in
+                the venue.
+              </li>
+              <li>
+                <strong>Back:</strong> Navigate back to the home page.
+              </li>
+            </ul>
+          </div>
+        );
+    }
+    
+    renderTableCreationExplanation() {
+        return (
+            <div>
+            <Typography variant="body1" align='center' style={{ marginTop: '10px' }}>
+                Tables' capacities ranging from <strong>3</strong> to <strong>20</strong> guests.
+            </Typography>
+            <Typography variant="body1" align='center' style={{ marginTop: '10px' }}>
+                In order to add a new table, simply specify the desired table's capacity, and the table will be added to your tables' list and to the venue's layout.
+            </Typography>
+            </div>
+        );
+    }
+
     render() {
         return (
-            <Grid alignItems='center'>
-                <Grid item xs={12} align='center'>
-                    <Typography variant='h3' compact='h3'>
-                            Pre-Wedding-Assist
+            <div className="page-container">
+                <Grid alignItems="center">
+                    <Grid item xs={12} align="center">
+                    <Typography variant="h3" compact="h3">
+                        Pre-Wedding-Assist
                     </Typography>
-                </Grid>
-                <Grid item xs={12} align='center'>
-                    <ButtonGroup disableElevation variant='contained' color='primary'>
-                        <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Create A Table</Button>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                    <ButtonGroup disableElevation variant="contained" color="primary">
+                        <Button
+                        color="primary"
+                        variant="contained"
+                        name="create-table"
+                        to="/createTable"
+                        component={Link}
+                        >
+                        Create A Table
+                        </Button>
                     </ButtonGroup>
-                </Grid>
-                <Grid item xs={12} align='center'>
-                    <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
-                </Grid>
-                <Grid item xs={6}>
+                    </Grid>
+                    <Grid item xs={12} align="center">
+                    <Button variant="contained" color="secondary" to="/home" component={Link}>
+                        Back
+                    </Button>
+                    </Grid>
                     
-                    {this.renderTablesTable()}
+                    <Grid item xs={12} className="table-container" >
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            name="show-venue"
+                            to="/showVenue"
+                            component={Link}
+                            >
+                        Show Venue Layout
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} className="table-container">
+                        {this.renderButtonManual()}
+                    </Grid>
+                    <Grid item xs={12} className="table-container">
+                        {this.renderTableCreationExplanation()}
+                    </Grid>
+                    <div className='tables-table'>
+                        <Grid item xs={6}>
+                            {this.renderTablesTable()}
+                        </Grid>
+                    </div>
                 </Grid>
-
-                <Grid item xs={12}>
-                    
-                    <Button color='primary' variant='contained' name="show-venue" to='/showVenue' component={Link}>Show Venue Layout</Button>
-
-                </Grid>
-                
-            </Grid>
+            </div>
         );
     }
 }

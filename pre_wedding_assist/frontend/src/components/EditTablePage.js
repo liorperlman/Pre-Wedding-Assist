@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function withParams(Component) {
-  return (props) => <Component {...props} />;
+  return props => <Component {...props} params={useParams()} />;
 }
 
 class EditTablePage extends Component {
@@ -16,10 +16,13 @@ class EditTablePage extends Component {
     this.state = {
       capacity: '',
       wedding: null,
+      x: 0,
+      y: 0
     };
 
     let { id } = this.props.params;
     this.id = id;
+    console.log(id)
     this.getTableDetails();
 
     this.handleCapacityChange = this.handleCapacityChange.bind(this);
@@ -34,6 +37,8 @@ class EditTablePage extends Component {
         this.setState({
           capacity: data.capacity,
           wedding: data.wedding,
+          x: data.x,
+          y: data.y
         });
       });
   }
@@ -53,17 +58,19 @@ class EditTablePage extends Component {
       body: JSON.stringify({
         id: this.id,
         capacity: this.state.capacity,
+        wedding: this.state.wedding,
+        x: this.state.x,
+        y: this.state.y
       }),
     };
 
-    fetch('/user/edit-table' + '?id=' + this.id, requestOptions)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    fetch('/user/edit-table' + '?id=' + this.id, requestOptions).then((response) => 
+    response.json()
+    ).then((data) => console.log(data));
   }
 
   render() {
-    return (
-      <Grid container spacing={1}>
+    return (<Grid container spacing={1}>
         <Grid item xs={12} align="center">
           <Typography component="h4" variant="h4">
             Edit Table Details
@@ -102,7 +109,7 @@ class EditTablePage extends Component {
           </FormControl>
         </Grid>
         <Grid item xs={12} align="center">
-          <Button variant="contained" color="secondary" to="/home" component={Link}>
+          <Button variant="contained" color="secondary" to="/displayTables" component={Link}>
             Back
           </Button>
         </Grid>

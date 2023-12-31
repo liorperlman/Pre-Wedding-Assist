@@ -88,9 +88,10 @@ body {
   }
   
   .hero {
-    /* background-image: url('../images/landing_page_background.png'); */
+    background-image: url('../images/landing_page_background.png');
     background-size: cover;
     background-position: center;
+    background-attachment: scroll;
     /* background-repeat: no-repeat; */
     /* color: #fff; */
     text-align: center;

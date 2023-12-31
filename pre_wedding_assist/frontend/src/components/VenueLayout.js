@@ -157,6 +157,44 @@ class VenueLayout extends Component {
         }));
     };
 
+    handleSubmitButtonClick = () => {
+        const tablesData = this.state.tables.map(table => ({
+            ...table,
+            x: table.x,
+            y: table.y,
+        }));
+        console.log(tablesData)
+        this.state.tables.forEach(table =>
+            {const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  id: table.id,
+                  capacity: table.capacity,
+                  wedding: table.wedding,
+                  x: table.x,
+                  y: table.y
+                }),
+            };
+            fetch('/user/edit-table' + '?id=' + this.id, requestOptions).then((response) => 
+            response.json()
+            ).then((data) => console.log(data));
+            })
+            
+        // const requestOptions = {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({
+        //     tables: tablesData,
+        //   }),
+        // };
+    
+        // fetch('/user/save-layout', requestOptions).then((response) => 
+        // response.json()
+        // ).then((data) => console.log(data));
+    }
+    
+
     renderGuestList = (table) => {
         const { guests } = this.state;
         const tableGuests = guests.filter((guest) => guest.table === table.id);
@@ -266,8 +304,8 @@ class VenueLayout extends Component {
                 </div>
                 <Grid item xs={12} align='center'>
                     <ButtonGroup disableElevation variant='contained' color='primary'>
-                            <Button color='primary' variant='contained' name="create-table" to='/createTable' component={Link}>Submit Layout</Button>
-                            <Button variant='contained' color='secondary' to='/home' component={Link}>Back</Button>
+                            <Button color='primary' variant='contained' onClick={this.handleSubmitButtonClick} name="save-layout">Submit Layout</Button>
+                            <Button variant='contained' color='secondary' to='/displayTables' component={Link}>Back</Button>
                             <Button variant='contained' color='secondary' onClick={this.handleLockButtonClick}>
                                 {isLocked ? 'Unlock Tables' : 'Lock Tables'}
                             </Button>

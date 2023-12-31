@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .page-container {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+  }
+  .guest-table {
+    display:flex;
+    justify-content:center;
+    margin:auto;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: auto;
+  }
+  

@@ -187,6 +187,16 @@ class GetGuestsForTable(APIView):
         
         return Response({'Bad Request': 'Id paramater not found in request'}, status=status.HTTP_400_BAD_REQUEST)
     
+class SaveLayout(APIView):
+    serializer_class = TableSerializer
 
-
-        
+    def post(self, request, format=None):
+        # Extract the data as a list
+        for table in request.POST.lists():
+            return Response({'status': 'failure'})
+            serializer = self.serializer_class(Table, data=table)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response({'status': 'failure'})
+        return Response({'status': 'success'})
