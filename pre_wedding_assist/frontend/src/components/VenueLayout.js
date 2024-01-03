@@ -307,7 +307,8 @@ class VenueLayout extends Component {
                                 border: '1px solid #999',
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center',
+                                alignItems: 'end',
+                                padding: '2px',
                                 cursor: 'move',
 
                             }}
