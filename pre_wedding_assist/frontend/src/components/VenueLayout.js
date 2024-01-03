@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import djStageImage from './images/dj_stage.png'
 
 class VenueLayout extends Component {
 
@@ -10,9 +10,11 @@ class VenueLayout extends Component {
         this.state = {
             tables: [],
             guests: [],
-            selectedTableId: null,
+            stages: [],
+            selectedObjectId: null,
             offsetX: 0,
             offsetY: 0,
+            className: '',
             isLocked: false, // Variable for locking tables
         };
     }
@@ -20,6 +22,7 @@ class VenueLayout extends Component {
     componentDidMount() {
         this.fetchTables();
         this.fetchGuests();
+        this.fetchStages();
     }
 
     fetchTables() {
@@ -44,50 +47,70 @@ class VenueLayout extends Component {
             });
     }
 
-    handleTableMouseDown = (event, tableId) => {
+    fetchStages() {
+        fetch('/user/stages')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ stages: data });
+            })
+            .catch((error) => {
+                console.error('Error fetching guests:', error);
+            });
+    }
+
+    handleObjectMouseDown = (event, objectId) => {
         event.stopPropagation();
         if (this.state.isLocked) {
             return; // Return early if tables are locked
         }
         this.setState({
-            selectedTableId: tableId,
+            selectedObjectId: objectId,
             offsetX: event.nativeEvent.offsetX,
             offsetY: event.nativeEvent.offsetY,
+            className: event.target.className,
         });
-        document.addEventListener('mousemove', this.handleTableMouseMove);
-        document.addEventListener('mouseup', this.handleTableMouseUp);
+        document.addEventListener('mousemove', this.handleObjectMouseMove);
+        document.addEventListener('mouseup', this.handleObjectMouseUp);
     };
 
-    handleTableMouseMove = (event) => {
+    handleObjectMouseMove = (event) => {
         if (this.state.isLocked) {
             return; // Return early if tables are locked
         }
-        const { selectedTableId, offsetX, offsetY } = this.state;
+        const { selectedObjectId, offsetX, offsetY, className } = this.state;
         const { clientX, clientY } = event;
         const venueLayout = document.getElementById('venue-layout');
         const venueLayoutRect = venueLayout.getBoundingClientRect();
 
         const newX = clientX - venueLayoutRect.left - offsetX;
         const newY = clientY - venueLayoutRect.top - offsetY;
-
-        this.setState((prevState) => ({
-            tables: prevState.tables.map((table) =>
-                table.id === selectedTableId ? { ...table, x: newX, y: newY } : table
-            ),
-        }));
+        if (className == 'table') {
+            this.setState((prevState) => ({
+                tables: prevState.tables.map((table) =>
+                    table.id === selectedObjectId ? { ...table, x: newX, y: newY } : table
+                ),
+            })); 
+        }
+        else{
+            this.setState((prevState) => ({
+                stages: prevState.stages.map((stage) =>
+                    stage.id === selectedObjectId ? { ...stage, x: newX, y: newY } : stage
+                ),
+            }));
+        }
     };
 
-    handleTableMouseUp = () => {
+    handleObjectMouseUp = () => {
         if (this.state.isLocked) {
             return; // Return early if tables are locked
         }
         this.setState({
-            selectedTableId: null,
+            selectedObjectId: null,
             offsetX: 0,
             offsetY: 0,
         });
-        document.removeEventListener('mousemove', this.handleTableMouseMove);
-        document.removeEventListener('mouseup', this.handleTableMouseUp);
+        document.removeEventListener('mousemove', this.handleObjectMouseMove);
+        document.removeEventListener('mouseup', this.handleObjectMouseUp);
     };
 
     assignGuestToTableDrag(guestId, tableId) {
@@ -158,12 +181,6 @@ class VenueLayout extends Component {
     };
 
     handleSubmitButtonClick = () => {
-        const tablesData = this.state.tables.map(table => ({
-            ...table,
-            x: table.x,
-            y: table.y,
-        }));
-        console.log(tablesData)
         this.state.tables.forEach(table =>
             {const requestOptions = {
                 method: 'POST',
@@ -177,6 +194,21 @@ class VenueLayout extends Component {
                 }),
             };
             fetch('/user/edit-table' + '?id=' + this.id, requestOptions).then((response) => 
+            response.json()
+            ).then((data) => console.log(data));
+            })
+        this.state.stages.forEach(stage =>
+            {const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: stage.id,
+                    name: stage.name,
+                    x: stage.x,
+                    y: stage.y
+                }),
+            };
+            fetch('/user/edit-stage' + '?id=' + this.id, requestOptions).then((response) => 
             response.json()
             ).then((data) => console.log(data));
             })
@@ -210,7 +242,7 @@ class VenueLayout extends Component {
       
 
     render() {
-        const { tables, guests, isLocked } = this.state;
+        const { tables, guests, stages, isLocked } = this.state;
 
         return (
             <div id='venue-container'
@@ -252,11 +284,37 @@ class VenueLayout extends Component {
                                 cursor: 'move',
 
                             }}
-                            onMouseDown={(event) => this.handleTableMouseDown(event, table.id)}
+                            onMouseDown={(event) => this.handleObjectMouseDown(event, table.id)}
                             onDrop={(event) => this.handleTableDrop(event, table.id)}
                             onDragOver={this.handleTableDragOver}
                         >
                             {table.id}
+                        </div>
+                    ))}
+                    {stages.map((stage) => (
+                        <div
+                            key={stage.id}
+                            className="stage"
+                            style={{
+                                position: 'absolute',
+                                left: stage.x,
+                                top: stage.y,
+                                width: `${200}px`,
+                                height: `${150}px`,
+                                background: `url(${djStageImage})`,
+                                backgroundSize: '100% 100%',
+                                backgroundRepeat: 'no-repeat',
+                                border: '1px solid #999',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                cursor: 'move',
+
+                            }}
+                            onMouseDown={(event) => this.handleObjectMouseDown(event, stage.id)}
+                            onDragOver={this.handleTableDragOver}
+                        >
+                            {stage.name}
                         </div>
                     ))}
                 </div>

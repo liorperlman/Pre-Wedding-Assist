@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Wedding, Table, Guest
+from .models import Wedding, Table, Guest, Stage
 
 class WeddingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +18,11 @@ class TableSerializer(serializers.ModelSerializer):
         model = Table
         fields = ('id', 'capacity', 'wedding', 'guests', 'x', 'y')
         
+class StageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stage
+        fields = ('id', 'name', 'x', 'y')        
+        
 class CreateWeddingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wedding
@@ -32,3 +37,8 @@ class CreateGuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guest
         fields = ('name', 'quantity', 'group', 'phone_number', 'is_attending', 'table')
+        
+class CreateStageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stage
+        fields = ('name', 'x', 'y')

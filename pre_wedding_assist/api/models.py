@@ -40,3 +40,7 @@ class Guest(models.Model):
     def __str__(self):
         return "Name: " + self.name + ", Quantity: " + str(self.quantity)
     
+class Stage(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    x = models.FloatField(default=0)
+    y = models.FloatField(default=0)
